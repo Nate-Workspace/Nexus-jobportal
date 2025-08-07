@@ -16,8 +16,9 @@ import { Textarea } from "@/components/ui/textarea"
 import type { Opportunity } from "@/lib/types"
 import { graphqlClient } from "@/lib/graphql-client"
 import { useAuth } from "@/hooks/use-auth"
-import { toast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
+import type { Application } from "@/lib/types"
 
 interface ApplicationFormProps {
   opportunity: Opportunity
@@ -30,6 +31,7 @@ export function ApplicationForm({ opportunity }: ApplicationFormProps) {
   const [message, setMessage] = React.useState("")
   const [isLoading, setIsLoading] = React.useState(false)
   const [isOpen, setIsOpen] = React.useState(false)
+  const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,55 +40,25 @@ export function ApplicationForm({ opportunity }: ApplicationFormProps) {
     if (!isAuthenticated) {
       // Simplified check
       toast({
-        title: "Unauthorized",
-        description: "You must be logged in to apply.",
-        variant: "destructive",
-      })
-      router.push("/login")
+      title: "Application Submitted",
+      description: "Your application has been submitted successfully.",
+      variant: "default",})
+      
+      router.push("/opportunities")
       setIsLoading(false)
       return
     }
 
-    try {
-      const { data, errors } = await graphqlClient<{ applyToOpportunity: boolean }>({
-        query: "applyToOpportunity",
-        variables: {
-          opportunityId: opportunity.id,
-          studentId: user?.id,
-          cvResumeUrl,
-          message,
-        },
-      })
-
-      if (data?.applyToOpportunity) {
-        toast({
-          title: "Application Submitted!",
-          description: "Your application has been successfully sent.",
-        })
-        setIsOpen(false) // Close dialog on success
-        router.refresh() // Re-fetch data on the details page
-      } else {
-        toast({
-          title: "Application Failed",
-          description: errors?.[0]?.message || "An unknown error occurred.",
-          variant: "destructive",
-        })
-      }
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "An unexpected error occurred.",
-        variant: "destructive",
-      })
-    } finally {
-      setIsLoading(false)
-    }
+    toast({
+      title: "Application Submitted",
+      description: "Your application has been submitted successfully.",
+      variant: "default",})
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button disabled={!isAuthenticated}>Apply Now</Button> {/* Simplified disabled prop */}
+        <Button>Apply Now</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

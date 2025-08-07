@@ -1,19 +1,18 @@
 "use client"
 
 import * as React from "react"
-import type { User } from "@/lib/types" // Removed UserRole
+import type { User } from "@/lib/types" 
 import { useRouter } from "next/navigation"
-import { toast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast"
 
 interface AuthContextType {
   user: User | null
   isLoading: boolean
-  login: (email: string) => Promise<void> // Removed role parameter
-  signup: (email: string) => Promise<void> // Removed role parameter
+  login: (email: string) => Promise<void> 
+  signup: (email: string) => Promise<void> 
   logout: () => Promise<void>
   isAuthenticated: boolean
-  isStudent: boolean // Still useful for clarity, but will always be true if authenticated
-  // Removed isProfessor
+  isStudent: boolean 
 }
 
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined)
@@ -22,10 +21,11 @@ export function AuthProvider({ children, initialUser }: { children: React.ReactN
   const [user, setUser] = React.useState<User | null>(initialUser)
   const [isLoading, setIsLoading] = React.useState(false)
   const router = useRouter()
+  const {toast} = useToast()
 
   const login = React.useCallback(
     async (email: string) => {
-      // Removed role parameter
+      
       setIsLoading(true)
       try {
         const res = await fetch("/api/auth", {
@@ -67,7 +67,7 @@ export function AuthProvider({ children, initialUser }: { children: React.ReactN
 
   const signup = React.useCallback(
     async (email: string) => {
-      // Removed role parameter
+      
       setIsLoading(true)
       try {
         const res = await fetch("/api/auth", {
@@ -129,8 +129,7 @@ export function AuthProvider({ children, initialUser }: { children: React.ReactN
   }, [router])
 
   const isAuthenticated = !!user
-  const isStudent = !!user // Always true if authenticated
-  // Removed isProfessor
+  const isStudent = !!user 
 
   const value = React.useMemo(
     () => ({
@@ -141,7 +140,6 @@ export function AuthProvider({ children, initialUser }: { children: React.ReactN
       logout,
       isAuthenticated,
       isStudent,
-      // Removed isProfessor
     }),
     [user, isLoading, login, signup, logout, isAuthenticated, isStudent],
   )

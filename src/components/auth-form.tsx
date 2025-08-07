@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-// Removed RadioGroup as role selection is no longer needed
 import { useAuth } from "@/hooks/use-auth"
 
 interface AuthFormProps {
@@ -14,15 +13,14 @@ interface AuthFormProps {
 
 export function AuthForm({ type }: AuthFormProps) {
   const [email, setEmail] = React.useState("")
-  // Removed role state as it's always STUDENT
   const { login, signup, isLoading } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (type === "login") {
-      await login(email) // Removed role parameter
+      await login(email)
     } else {
-      await signup(email) // Removed role parameter
+      await signup(email)
     }
   }
 
@@ -47,7 +45,6 @@ export function AuthForm({ type }: AuthFormProps) {
               required
             />
           </div>
-          {/* Removed Role RadioGroup */}
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" required />

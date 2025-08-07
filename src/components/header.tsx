@@ -19,9 +19,8 @@ export function Header() {
           <Link href="/opportunities" passHref>
             <Button variant="ghost">Opportunities</Button>
           </Link>
-          {isAuthenticated ? (
+          {/* {isAuthenticated ? (
             <>
-              {/* Removed Post Opportunity link */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -50,7 +49,7 @@ export function Header() {
                 <Button>Sign Up</Button>
               </Link>
             </>
-          )}
+          )} */}
         </nav>
       </div>
     </header>

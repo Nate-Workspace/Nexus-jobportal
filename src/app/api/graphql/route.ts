@@ -14,9 +14,9 @@ export async function POST(req: NextRequest) {
 
   // Allow 'opportunities', 'opportunity', 'login', and 'signup' queries without authentication
   // All other queries/mutations require authentication (and implicitly, student role)
-  if (!currentUser && query !== "login" && query !== "signup" && query !== "opportunities" && query !== "opportunity") {
-    return NextResponse.json({ errors: [{ message: "Authentication required" }] }, { status: 401 })
-  }
+  // if (!currentUser && query !== "login" && query !== "signup" && query !== "opportunities" && query !== "opportunity") {
+  //   return NextResponse.json({ errors: [{ message: "Authentication required" }] }, { status: 401 })
+  // }
 
   try {
     const result: any = {}

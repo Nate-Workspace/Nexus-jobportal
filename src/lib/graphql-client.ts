@@ -20,9 +20,19 @@ export async function graphqlClient<T extends QueryResult | MutationResult>(
   })
 
   if (!res.ok) {
-    const errorData = await res.json()
-    console.error("GraphQL API error:", errorData)
-    return { errors: [{ message: errorData.message || "An unknown error occurred" }] }
+    let errorMessage = `HTTP error ${res.status}`
+
+    try {
+      const errorData = await res.json()
+      if (errorData && typeof errorData.message === "string") {
+        errorMessage = errorData.message
+      }
+    } catch {
+      
+    }
+
+    console.error("GraphQL API error:", errorMessage)
+    return { errors: [{ message: errorMessage }] }
   }
 
   const data: GraphQLResponse<T> = await res.json()

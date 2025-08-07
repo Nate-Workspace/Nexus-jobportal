@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { MapPin, CalendarDays, FlaskConical, Briefcase } from "lucide-react"
 import { ApplicationForm } from "@/components/application-form"
 import { getAuthUser } from "@/lib/auth"
-import { notFound } from "next/navigation" // Removed redirect
+import { notFound } from "next/navigation" 
 
 interface OpportunityDetailsPageProps {
   params: {
@@ -15,13 +15,9 @@ interface OpportunityDetailsPageProps {
 
 export default async function OpportunityDetailsPage({ params }: OpportunityDetailsPageProps) {
   const { id } = params
-
-  // Removed explicit redirect for 'new' as the new opportunity page is removed
-  // and this route should only handle actual opportunity IDs.
-
   const user = await getAuthUser()
 
-  let opportunity: Opportunity | null | undefined = null
+  let opportunity: Opportunity | null | undefined= null
   try {
     const opportunityResponse = await graphqlClient<{ opportunity: Opportunity }>({
       query: "opportunity",
@@ -34,7 +30,7 @@ export default async function OpportunityDetailsPage({ params }: OpportunityDeta
   }
 
   if (!opportunity) {
-    notFound() // Render 404 page if opportunity not found
+    notFound() 
   }
 
   return (
@@ -75,12 +71,10 @@ export default async function OpportunityDetailsPage({ params }: OpportunityDeta
             </div>
           </div>
 
-          {/* user?.role === "STUDENT" will always be true if user is authenticated */}
-          {user?.role === "STUDENT" && (
+          
             <div className="pt-4 border-t mt-6">
               <ApplicationForm opportunity={opportunity} />
             </div>
-          )}
         </CardContent>
       </Card>
     </div>
