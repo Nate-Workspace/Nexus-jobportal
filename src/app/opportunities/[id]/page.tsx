@@ -4,18 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { MapPin, CalendarDays, FlaskConical, Briefcase } from "lucide-react"
 import { ApplicationForm } from "@/components/application-form"
-import { getAuthUser } from "@/lib/auth"
 import { notFound } from "next/navigation" 
 
-interface PageProps {
-  params: {
-    id: string
-  }
-}
-
-export default async function OpportunityDetailsPage({ params }: PageProps) {
+export default async function OpportunityDetailsPage({ params }: {
+  params: { id: string }
+}) {
   const { id } = params
-  const user = await getAuthUser()
 
   let opportunity: Opportunity | null | undefined= null
   try {
