@@ -7,13 +7,13 @@ import { ApplicationForm } from "@/components/application-form"
 import { getAuthUser } from "@/lib/auth"
 import { notFound } from "next/navigation" 
 
-interface OpportunityDetailsPageProps {
+interface PageProps {
   params: {
     id: string
   }
 }
 
-export default async function OpportunityDetailsPage({ params }: OpportunityDetailsPageProps) {
+export default async function OpportunityDetailsPage({ params }: PageProps) {
   const { id } = params
   const user = await getAuthUser()
 
