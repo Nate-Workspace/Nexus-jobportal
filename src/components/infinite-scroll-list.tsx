@@ -2,18 +2,18 @@
 
 import * as React from "react"
 import { useInView } from "react-intersection-observer"
+import { OpportunityCard } from "@/components/opportunity-card"
+import { Opportunity } from "@/lib/types"
 
-interface InfiniteScrollListProps<T> {
+interface InfiniteScrollListProps<T extends Opportunity> {
   fetchMore: (offset: number, limit: number) => Promise<T[]>
-  renderItem: (item: T) => React.ReactNode
   initialItems: T[]
   limit?: number
   noMoreItemsMessage?: string
 }
 
-export function InfiniteScrollList<T>({
+export function InfiniteScrollList<T extends Opportunity>({
   fetchMore,
-  renderItem,
   initialItems,
   limit = 10,
   noMoreItemsMessage = "You have seen all opportunities.",
@@ -51,7 +51,9 @@ export function InfiniteScrollList<T>({
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{items.map(renderItem)}</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{items.map((opportunity) => (
+          <OpportunityCard key={opportunity.id} opportunity={opportunity} />
+        ))}</div>
       {hasMore && (
         <div ref={ref} className="flex justify-center py-4">
           {isLoading ? <Spinner /> : null}

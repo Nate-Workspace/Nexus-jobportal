@@ -1,5 +1,3 @@
-
-import { OpportunityCard } from "@/components/opportunity-card"
 import { InfiniteScrollList } from "@/components/infinite-scroll-list"
 import { graphqlClient } from "@/lib/graphql-client"
 import type { Opportunity, OpportunityType, ExperienceLevel } from "@/lib/types" // Added ExperienceLevel
@@ -155,7 +153,6 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
       <InfiniteScrollList
         initialItems={initialOpportunities}
         fetchMore={clientFetchMoreOpportunities}
-        renderItem={(opportunity) => <OpportunityCard key={opportunity.id} opportunity={opportunity} />}
       />
     </div>
   )
