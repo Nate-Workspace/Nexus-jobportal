@@ -1,6 +1,7 @@
 "use client";
 
-
+import { OpportunityCard } from "@/components/opportunity-card"
+import { InfiniteScrollList } from "@/components/infinite-scroll-list";
 import { graphqlClient } from "@/lib/graphql-client";
 import type {
   Opportunity,
@@ -89,7 +90,7 @@ export default async function OpportunitiesPage({
     <div className="space-y-8">
       <h1 className="text-4xl font-bold text-center">Explore Opportunities</h1>
 
-      {/* Filter Section */}
+
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border rounded-lg bg-muted/20">
         <div className="grid gap-2">
           <Label htmlFor="filter-type">Type</Label>
@@ -139,7 +140,6 @@ export default async function OpportunitiesPage({
             </SelectContent>
           </Select>
         </div>
-        {/* New Experience Level Filter */}
         <div className="grid gap-2">
           <Label htmlFor="filter-experience-level">Experience Level</Label>
           <Select
@@ -186,7 +186,14 @@ export default async function OpportunitiesPage({
         </div>
       </div>
 
-      
+      <InfiniteScrollList
+        initialItems={initialOpportunities}
+        fetchMore={clientFetchMoreOpportunities}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        renderItem={(opportunity: any) => (
+          <OpportunityCard key={opportunity.id} opportunity={opportunity} />
+        )}
+      />
     </div>
   );
 }
