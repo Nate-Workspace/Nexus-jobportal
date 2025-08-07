@@ -2,12 +2,12 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/hooks/use-auth"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { UserIcon } from "lucide-react"
+// import { useAuth } from "@/hooks/use-auth"
+// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+// import { UserIcon } from "lucide-react"
 
 export function Header() {
-  const { user, isAuthenticated, logout } = useAuth() // Removed isProfessor
+  // const { user, isAuthenticated, logout } = useAuth()
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background mx-0 flex justify-center">

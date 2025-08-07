@@ -14,11 +14,9 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import type { Opportunity } from "@/lib/types"
-import { graphqlClient } from "@/lib/graphql-client"
 import { useAuth } from "@/hooks/use-auth"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
-import type { Application } from "@/lib/types"
 
 interface ApplicationFormProps {
   opportunity: Opportunity
