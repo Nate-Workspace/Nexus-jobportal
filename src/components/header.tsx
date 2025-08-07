@@ -10,7 +10,7 @@ export function Header() {
   const { user, isAuthenticated, logout } = useAuth() // Removed isProfessor
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header className="sticky top-0 z-40 w-full border-b bg-background mx-0 flex justify-center">
       <div className="container flex h-16 items-center justify-between py-4">
         <Link href="/" className="text-2xl font-bold">
           Opportunity Portal
