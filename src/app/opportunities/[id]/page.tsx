@@ -7,9 +7,9 @@ import { ApplicationForm } from "@/components/application-form"
 import { notFound } from "next/navigation" 
 
 export default async function OpportunityDetailsPage({ params }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
-  const { id } = params
+  const { id } = await params
 
   let opportunity: Opportunity | null | undefined= null
   try {
