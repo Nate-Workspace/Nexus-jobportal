@@ -7,7 +7,7 @@ export async function graphqlClient<T extends QueryResult | MutationResult>(
   const isServer = typeof window === "undefined"
 
   const url = isServer
-    ? `${"http://localhost:3000"}/api/graphql`
+    ? `${"https://nexus-jobportal.vercel.app"}/api/graphql`
     : "/api/graphql"
 
 
