@@ -3,7 +3,15 @@ import type { GraphQLRequest, GraphQLResponse, QueryResult, MutationResult } fro
 export async function graphqlClient<T extends QueryResult | MutationResult>(
   request: GraphQLRequest,
 ): Promise<GraphQLResponse<T>> {
-  const res = await fetch("/api/graphql", {
+
+  const isServer = typeof window === "undefined"
+
+  const url = isServer
+    ? `${"http://localhost:3000"}/api/graphql`
+    : "/api/graphql"
+
+
+  const res = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
