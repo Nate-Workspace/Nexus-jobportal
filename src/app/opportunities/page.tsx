@@ -3,17 +3,18 @@ import { OpportunitiesListClient } from "./OpportunitiesList.client"
 import { graphqlClient } from "@/lib/graphql-client"
 import type { Opportunity, OpportunityType, ExperienceLevel } from "@/lib/types"
 
-export default async function OpportunitiesPage({ searchParams }: {
-  searchParams?: {
+export default async function OpportunitiesPage(props: {
+  searchParams?: Promise<{
     type?: OpportunityType
     location?: "REMOTE" | "ONSITE" | "HYBRID"
     skills?: string
     experienceLevel?: ExperienceLevel
-  }
+  }>
 }) {
   // Your server-side initial data fetch, etc.
   const getFilterValue = (param: string | undefined, allValue = "ALL") =>
     param && param !== allValue ? param : undefined
+  const searchParams = await props.searchParams;
 
   const currentType = getFilterValue(searchParams?.type, "ALL") as OpportunityType | undefined
   const currentLocation = getFilterValue(searchParams?.location, "ALL") as
